@@ -65,7 +65,7 @@ namespace TodoList.MVC.Controllers
         }
 
 
-        [HttpPost("{taskId}")]
+        [HttpGet("{taskId}")]
         public async Task<IActionResult> DeleteTask(int userId, int taskId)
         {
             if (ModelState.IsValid)

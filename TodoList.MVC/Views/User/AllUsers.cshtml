@@ -23,30 +23,41 @@
 }
 
 
-@foreach (var item in Model.Select((value, i) => new { value, i }))
-{
-    <ul class="list-group">
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Fullname</th>
+            <th scope="col">Email</th>
+        </tr>
+    </thead>
 
-            <span>@item.value.FullName</span>
-            <span>@item.value.Email</span>
+    @foreach (var item in Model.Select((value, i) => new { value, i }))
+    {
+        <tbody>
+            <tr>
+                <th scope="row">@(item.i + 1)</th>
+                <td>@item.value.FullName</td>
+                <td>@item.value.Email</td>
+                <td class="d-flex">
 
-            <div class="btn-group" role="group">
+                    <span class="px-2">
+                        <a asp-controller="User" asp-action="NewUser" asp-route-userId="@item.value.Id" title="Edit Details">
+                            <i class="fa-solid fa-pen-to-square fa-lg" style="color: #588157"></i>
+                        </a>
+                    </span>
 
-                <form method="post" action="@Url.Action("DeleteUser", "User", new { userId = @item.value.Id })">
-                    @Html.AntiForgeryToken()
-                    <input type="submit" class="btn btn-danger" value="Delete" />
-                </form>
+                    <span class="px-2">
+                        <a asp-controller="User" asp-action="DeleteUser" asp-route-userId="@item.value.Id" title="Delete User">
+                            <i class="fa-solid fa-trash fa-lg" style="color:red"></i>
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    }
+    </table>
 
-                <form method="post" action="@Url.Action("NewUser", "User", new { userId = @item.value.Id })">
-                    @Html.AntiForgeryToken()
-                    <input type="submit" class="btn btn-primary" value="Update" />
-                </form>
-
-            </div>
-        </li>
-    </ul>
-}
 
 
 @section Scripts

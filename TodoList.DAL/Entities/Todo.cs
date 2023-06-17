@@ -13,7 +13,6 @@ namespace TodoList.DAL.Entities
         public DateTime DueDate { get; set;}
         public bool IsDone { get; set; }
         public int UserId { get; set; }
-
         public User User { get; set; }
     }
 }

@@ -18,48 +18,47 @@
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     }
-   
 
-    <div class="alert-danger" asp-validation-summary="@ValidationSummary.ModelOnly"></div>
+
+    <div class="alert-danger" asp-validation-summary="@ValidationSummary.All"></div>
 
 
     <div class="mb-3">
-        <input type="hidden" class="form-control" asp-for="@Model.UserId">
-        <span asp-validation-for="@Model.UserId"></span>
+        <input type="hidden" class="form-control" asp-for="UserId">
+        <span asp-validation-for="UserId"></span>
     </div>
-    
-    
+
+
     <div class="mb-3">
-        <input type ="hidden" class="form-control" asp-for="@Model.TaskId">
+        <input type="hidden" class="form-control" asp-for="@Model.TaskId">
+        <span asp-validation-for="TaskId"></span>
     </div>
-    
-    
+
+
     <div class="mb-3">
         <label asp-for="@Model.Title" class="form-label"></label>
         <input class="form-control" asp-for="@Model.Title">
-        <span asp-validation-for="@Model.Title" class="alert-danger"></span>
-    </div>
-    
-    <div class="mb-3">
-        <label asp-for="@Model.Description" class="form-label"></label>
-        <textarea class="form-control" asp-for="@Model.Description"></textarea>
-        <span asp-validation-for="Description" class="alert-danger"></span>
+        <span asp-validation-for="Title" class="alert-danger"></span>
     </div>
 
     <div class="mb-3">
-        
-        <label asp-for="@Model.Priority" class="form-label"></label>
-        <select class="form-select" aria-label="Default select example" asp-for="@Model.Priority"  asp-items="Html.GetEnumSelectList <Priority>()">
-        <option selected="" value="">Pick a Priority</option>
-           
-        </select>
-        <span asp-validation-for="Priority" class="alert-danger"></span>
+        <label asp-for="@Model.Description" class="form-label"></label>
+        <textarea class="form-control" asp-for="@Model.Description"></textarea>
+
     </div>
-    
+
+    <div class="mb-3">
+
+        <label asp-for="@Model.Priority" class="form-label"></label>
+        <select class="form-select" aria-label="Default select example" asp-for="@Model.Priority" asp-items="Html.GetEnumSelectList <Priority>()">
+            <option selected="" value="">Pick a Priority</option>
+
+        </select>
+    </div>
+
     <div class="mb-3">
         <label asp-for="@Model.DueDate" class="form-label"></label>
-        <input type="date" class="form-control" asp-for="@Model.DueDate">
-        <span asp-validation-for="DueDate" class="alert-danger"></span>
+        <input class="form-control" asp-for="@Model.DueDate">
     </div>
 
 

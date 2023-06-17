@@ -19,11 +19,13 @@
 }
 @foreach (var item in Model.Select((value, i) => new { value, i }))
 {
-    <h4>@(item.i + 1). @item.value.Fullname's Tasks</h4>
+    <div class="d-lg-flex mt-5">
+        <h4>@(item.i + 1). @item.value.Fullname's Tasks</h4>
 
-    <form action="@Url.Action("New", "TodoList", new { userId = @item.value.Id, taskId = @item.value})" method="Get">
-        <input type="submit" class="btn btn-success" value="Add" placeholder="@item.value.Id" />
-    </form>
+        <a asp-controller="TodoList" asp-action="New" asp-route-userId="@item.value.Id" title="Add New Task">
+            <i class="fa-solid fa-plus fa-2xl mx-3" style="color: #005f73"></i>
+        </a>
+    </div>
 
     <table class="table table-striped">
 
@@ -49,28 +51,29 @@
                         <td>@task.value.Priority</td>
                         <td>@task.value.DueDate</td>
                         <td>@task.value.Status</td>
-
                         <td>
                             <div class="d-lg-flex">
-                                <span class="px-1">
-                                    <form action="@Url.Action("SaveUpdateStatus", "TodoList", new { UserId = @item.value.Id, taskId = @task.value.Id})" method="Get">
-                                        <input type="submit" class="btn btn-warning" value="Update" placeholder="@task.value.Status" />
-                                    </form>
 
+                                <span class="px-2">
+                                    <a asp-controller="TodoList" asp-action="SaveUpdateStatus" asp-route-userId="@item.value.Id" asp-route-taskId="@task.value.Id" title="Update Task">
+                                        @if(task.value.Status == "Done")
+                                        {
+                                            <i class="fa-solid fa-thumbs-up fa-xl" style="color:green"></i>
+                                        }else{
+                                            <i class="fa-solid fa-thumbs-down fa-xl" style="color:black"></i>
+                                        }
+                                    </a>
+                                </span>
+                                <span class="px-2">
+                                    <a asp-controller="TodoList" asp-action="UpdateTask" asp-route-userId="@item.value.Id" asp-route-taskId="@task.value.Id" title="Update Task">
+                                        <i class="fa-solid fa-pen-to-square fa-lg" style="color: #ffd60a"></i>
+                                    </a>
                                 </span>
 
-                                <span class="px-1">
-                                    <form action="@Url.Action("UpdateTask", "TodoList", new { UserId = @item.value.Id, TaskId = @task.value.Id})" method="Get">
-
-                                        <input type="submit" class="btn btn-secondary" value="Edit" placeholder="@task.value.Status" />
-                                    </form>
-
-                                </span>
-                                <span>
-                                    <form action="@Url.Action("DeleteTask", "TodoList", new { UserId = @item.value.Id, taskId = @task.value.Id})" method="post">
-
-                                        <input type="submit" class="btn btn-danger" value="Delete" placeholder="@task.value.Status" />
-                                    </form>
+                                <span class="px-2">
+                                    <a asp-controller="TodoList" asp-action="DeleteTask" asp-route-UserId="@item.value.Id" asp-route-taskId="@task.value.Id" title="Delete Task">
+                                         <i class="fa-solid fa-trash fa-lg" style="color:red"></i>
+                                    </a>
                                 </span>
 
                             </div>

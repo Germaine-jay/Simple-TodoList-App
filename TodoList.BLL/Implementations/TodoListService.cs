@@ -16,7 +16,6 @@ namespace TodoList.BLL.Implementations
 		private readonly IRepository<User> _userRepo;
 		private readonly IRepository<Todo> _taskRepo;
 
-
 		public TodoListService(IUnitOfWork unitOfWork, IMapper mapper)
 		{
 			_unitOfWork = unitOfWork;
@@ -52,7 +51,6 @@ namespace TodoList.BLL.Implementations
 			return rowChanges > 0 ? (true, $"Task: {model.Title} was successfully created!") : (false, "Failed To save changes!");
 		}
 
-
 		public async Task<(bool successful, string msg)> DeleteTaskAsync(int userId, int taskId)
 		{
 			User user = await _userRepo.GetSingleByAsync(u => u.Id == userId, include: u => u.Include(x => x.TodoList), tracking: true);
@@ -66,11 +64,10 @@ namespace TodoList.BLL.Implementations
 			if (task != null)
 			{
 				await _taskRepo.DeleteAsync(task);
-				return (true, $"task with taskId{taskId} Deleted");
+				return (true, $"task with taskId{task.Title} Deleted");
 			}
-			return (false, $"Task with id:{taskId} was not found");
+			return (false, $"Task with id:{task.Title} was not found");
 		}
-
 
 		public async Task<AddOrUpdateTaskVM> GetTask(int userId, int taskId)
 		{
