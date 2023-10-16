@@ -4,7 +4,7 @@ using TodoList.BLL.Models;
 
 namespace TodoList.MVC.Controllers
 {
-    [Route("[controller]/[action]/{id?}")]
+    [Route("[controller]/[action]/{userid?}")]
     public class UserController : Controller
     {
         public IActionResult Index()
@@ -65,12 +65,10 @@ namespace TodoList.MVC.Controllers
         }
 
 
-        [HttpPost("{userId}")]
         public async Task<IActionResult> DeleteUser(int userId)
         {
             if (ModelState.IsValid)
             {
-
                 var (success, msg) = await _userService.DeleteAsync(userId);
                 if (success)
                 {
@@ -79,7 +77,7 @@ namespace TodoList.MVC.Controllers
                 }
 
                 TempData["ErrMsg"] = msg;
-                return RedirectToAction("AllUsers");
+                return View("AllUsers");
 
             }
             return View("AllUsers");
